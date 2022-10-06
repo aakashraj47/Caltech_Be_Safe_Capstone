@@ -4,37 +4,40 @@ pipeline {
         maven 'mvn'
     }
     stages{
-        stage('GIT checkout') {
+        stage('GIT Checkout') {
             steps {
-                git credentialsId: 'github_cred', url: 'https://github.com/tmatin100/CalTech-PG-DevOps-Final-Capstone-Project.git'
-           }
-       }
-          stage('Build Package') {
+                git branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/aakashraj47/Caltech_Be_Safe_Capstone.git'
+            }
+        }
+        stage('Build Package') {
             steps {
                 sh 'mvn clean install'
             }
         }
-        stage('Docker build and Tag') {
-            steps{
+        stage('Docker build and tag') {
+            steps {
                 sh 'docker build -t ${JOB_NAME}:v1.${BUILD_NUMBER} .'
                 sh 'docker tag ${JOB_NAME}:v1.${BUILD_NUMBER} aakashraj47/${JOB_NAME}:v1.${BUILD_NUMBER} '
                 sh 'docker tag ${JOB_NAME}:v1.${BUILD_NUMBER} aakashraj47/${JOB_NAME}:latest '
             }
         }
-        stage('push conatiner') {
-            steps{
-                withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubcred')]) {
-                  sh 'docker login -u aakashraj47 -p ${dockerhubcred}'
+        stage('Push Container') {
+            steps {
+                withCredentials([usernameColonPassword(credentialsId: 'dockerhub', variable: 'dockerhubcred')]) {
+                //withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubcred')]) {
+                  //sh 'docker login -u aakashraj47 -p ${dockerhubcred}'
+                  sh 'docker login -u aakashraj47 -p aakash...1989'
                   sh 'docker push aakashraj47/${JOB_NAME}:v1.${BUILD_NUMBER}'
                   sh 'docker push aakashraj47/${JOB_NAME}:latest'
                   sh 'docker rmi ${JOB_NAME}:v1.${BUILD_NUMBER} aakashraj47/${JOB_NAME}:v1.${BUILD_NUMBER} aakashraj47/${JOB_NAME}:latest'
-                }      
+                }
             }
         }
         stage('Docker Deploy') {
-            steps{
-                ansiblePlaybook credentialsId: 'ansible-host', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory.txt', playbook: 'deploy.yml'
+            steps {
+                nsiblePlaybook credentialsId: 'ansible-host2', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory.txt', playbook: 'deploy.yml'
+                //ansiblePlaybook credentialsId: 'ansible-host', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory.txt', playbook: 'deploy.yml'
             }
-        }          
+        }
     }
 }
