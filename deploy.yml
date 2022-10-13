@@ -9,8 +9,8 @@
      - name: remove tomcat container
        shell: docker rm -f tomcat-container
        
-#     - name: Remove tomcat image
-#       shell: docker rmi -f aakashraj47/hello-world
+     - name: Remove tomcat image
+       shell: docker rmi -f aakashraj47/bsafe
        
      - name: create a new tomcat container using the defined Dockerfile
        shell: docker run -d --name tomcat-container -p 8080:8080 aakashraj47/bsafe
