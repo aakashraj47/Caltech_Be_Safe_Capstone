@@ -34,6 +34,11 @@ pipeline {
                 }
             }
         }
+        stage('Remove Container') {
+            steps {
+                sh label: 'shell_script', script: 'script.sh'
+            }
+        }
         stage('Docker Deploy') {
             steps {
                 ansiblePlaybook credentialsId: 'ansible-host', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory.txt', playbook: 'deploy.yml'
