@@ -3,11 +3,11 @@
   #become: true
   
   tasks:
-     - name: stop tomcat docker
-       shell: docker stop tomcat-container
+#     - name: stop tomcat docker
+#       shell: docker stop tomcat-container
        
-     - name: remove tomcat container
-       shell: docker rm -f tomcat-container
+#     - name: remove tomcat container
+#       shell: docker rm -f tomcat-container
        
      - name: Remove unused image
        shell: docker image prune -f
