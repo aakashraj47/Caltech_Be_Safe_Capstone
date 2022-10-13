@@ -3,18 +3,6 @@
   #become: true
   
   tasks:
-#     - name: stop tomcat docker
-#       shell: docker stop tomcat-container
-       
-#     - name: remove tomcat container
-#       shell: docker rm -f tomcat-container
-      
-#      - name: Transfer the script to check the tomcat container status
-#        copy: src=script.sh dest=/var/lib/jenkins/workspace/bsafe mode=777
- 
-#      - name: Excute the script
-#        shell: /var/lib/jenkins/workspace/bsafe/script.sh
-
       - name: Remove unused image
         shell: docker image prune -f
        
