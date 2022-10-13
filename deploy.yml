@@ -13,7 +13,7 @@
         copy: src=script.sh dest=/var/lib/jenkins/workspace/bsafe mode=777
  
       - name: Excute the script
-        command: sh /var/lib/jenkins/workspace/bsafe/script.sh
+        shell: /var/lib/jenkins/workspace/bsafe/script.sh
 
       - name: Remove unused image
         shell: docker image prune -f
