@@ -9,11 +9,11 @@
 #     - name: remove tomcat container
 #       shell: docker rm -f tomcat-container
       
-      - name: Transfer the script to check the tomcat container status
-        copy: src=script.sh dest=/var/lib/jenkins/workspace/bsafe mode=777
+#      - name: Transfer the script to check the tomcat container status
+#        copy: src=script.sh dest=/var/lib/jenkins/workspace/bsafe mode=777
  
-      - name: Excute the script
-        shell: /var/lib/jenkins/workspace/bsafe/script.sh
+#      - name: Excute the script
+#        shell: /var/lib/jenkins/workspace/bsafe/script.sh
 
       - name: Remove unused image
         shell: docker image prune -f
