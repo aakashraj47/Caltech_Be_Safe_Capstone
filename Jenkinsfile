@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Remove Container') {
             steps {
-                sh label: 'shell_script', script: 'script.sh'
+                sh '/var/lib/jenkins/workspace/bsafe/script.sh'
             }
         }
         stage('Docker Deploy') {
